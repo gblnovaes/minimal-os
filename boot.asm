@@ -1,41 +1,21 @@
-;-----------------------------------;
-; Project Initialized in 01-01-2025 ;
-;-----------------------------------; 
-
-
-ORG 0x7c00 
+ORG 0X7C00
 BITS 16
 
 
-start:
-    mov si, msg
-    call print
-    jmp $
+;define mode video
+mov ah,0x00
+mov al,0x13
+int 0x10
 
+_LOOP:
+    jmp _LOOP
 
-print:
-    mov bx,0 
+mov ah,0x0C
+int 0x10
 
-repete:
-    lodsb
-    cmp al,0
-    je done
-    call print_char
-    jmp repete
-    
-done:
-    ret
- 
-
-print_char:
-   mov ah,0eh
-   int 0x10
-   ret
-
-
-msg db 'Hello World',0
 
 times 510-($-$$) db 0
-dw 0xAA55
 
+DB 0X55
+DB 0xAA
 
